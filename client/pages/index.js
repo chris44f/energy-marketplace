@@ -21,10 +21,9 @@ export default function Home() {
         <img alt="constantine" width="160" src="https://static.octopuscdn.com/constantine/constantine.svg"/>
         <h2>
           <Link href="/marketplace">
-            <a
-              // href="/marketplace"
-            >
-              Go to product page</a>
+            <a>
+              Go to product page
+            </a>
           </Link>
         </h2>
       </main>
