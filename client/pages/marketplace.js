@@ -33,20 +33,22 @@ export default function Marketplace({ products }) {
   );
 };
 
+const GET_ALL_PRODUCTS = gql`
+  query AllProducts {
+    allProducts {
+      id
+      name
+      price
+      img_url
+      quantity
+      power
+    }
+  }
+`
+
 export async function getStaticProps() {
   const { data } = await client.query({
-    query: gql`
-      query AllProducts {
-        allProducts {
-          id
-          name
-          price
-          img_url
-          quantity
-          power
-        }
-      }
-    `,
+    query: GET_ALL_PRODUCTS
   });
 
   return {
