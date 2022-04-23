@@ -1,20 +1,33 @@
-import React  from 'react';
 import { gql } from "@apollo/client";
 import client from "../apollo-client"
+import {ProductTile} from "../components/ProductTile";
 
 export default function Marketplace({ products }) {
-  const renderProducts = () => {
-    return products.map(product => {
-      return (
-        <p key={product.id}>{product.name}</p>
-      );
-      });
-    }
+  const renderProducts = () => (
+    products.map((
+      {
+        id,
+        name,
+        price,
+        img_url,
+        quantity,
+        power
+      }) => <ProductTile
+        key={id}
+        name={name}
+        id={id}
+        imageUrl={img_url}
+        price={price}
+        power={power}
+        quantity={quantity}
+      />
+    )
+  )
 
   return (
     <main>
       <div>
-        {renderProducts()}
+        {products.length > 0 ? renderProducts() : null}
       </div>
     </main>
   );
@@ -29,6 +42,8 @@ export async function getStaticProps() {
           name
           price
           img_url
+          quantity
+          power
         }
       }
     `,
