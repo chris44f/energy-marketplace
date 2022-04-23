@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import Image from "next/image";
 import { gql } from "@apollo/client";
 import client from "../../apollo-client";
+import { AddToBasket } from "../../components/AddToBasket";
 
 export default function Product({ product }) {
-  const [productQuantity, setProductQuantity] = useState(1)
-
   const { id,
     name,
     price,
@@ -21,24 +19,6 @@ export default function Product({ product }) {
     model_code,
     colour } = product;
 
-  const formattedPrice = (price / 100).toFixed(2)
-
-  const handleQuantityDecrease = () => {
-    if (quantity === 1) return;
-
-    setProductQuantity(current => current -1)
-  }
-
-  const handleQuantityIncrease = () => {
-    if (quantity === 99) return;
-
-    setProductQuantity(current => current +1)
-  }
-
-  const handleAddItem = () => {
-    //  Add redux action to handle adding item to basket
-  }
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '50vh'}}>
       <div style={{ width: '50%', height: '50%', position: 'relative' }}>
@@ -46,11 +26,7 @@ export default function Product({ product }) {
       </div>
       <h1>{name}</h1>
       <p>{`${power} // ${quantity === 1 ? 'Single' : `Packet of ${quantity}`}`}</p>
-      <p>{formattedPrice}</p>
-      <button onClick={handleQuantityDecrease} disabled={productQuantity === 1}>-</button>
-      <span>{productQuantity}</span>
-      <button onClick={handleQuantityIncrease} disabled={productQuantity === 99}>+</button>
-      <button onClick={handleAddItem}>Add to basket</button>
+      <AddToBasket price={price} />
       <h2>Description</h2>
       <p>{description}</p>
       <h2>Specifications</h2>
