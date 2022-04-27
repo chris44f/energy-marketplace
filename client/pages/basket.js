@@ -14,10 +14,10 @@ export default function Basket() {
   return (
     <div>
       <h1>Your basket contents</h1>
-      <h2>{`You have ${contents.length} item${contents.length !== 1 ? 's' : ''} in your basket`}</h2>
+      <h2>{`You have ${basketTotal > 0 ? contents.length : 0} item${basketTotal > 0 ? contents.length !== 1 ? 's' : '' : 's'} in your basket`}</h2>
       {basketTotal === 0 ? <p><Link href="/marketplace"><a>Browse our products</a></Link></p> : null}
       <div>
-        {contents.map(product => <BasketProductRow productId={product.productId} productQuantity={product.quantity} key={product.productId} refreshBasket={refetch} />)}
+        {basketTotal > 0 ? contents.map(product => <BasketProductRow productId={product.productId} productQuantity={product.quantity} key={product.productId} refreshBasket={refetch} />) : null}
       </div>
       {basketTotal !== 0 ? <div>{`Total: ${(basketTotal / 100).toFixed(2)}`}</div> : null}
     </div>

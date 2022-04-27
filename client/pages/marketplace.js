@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import client from "../apollo-client"
 import { GET_ALL_PRODUCTS } from "../graphql/product/queries";
 import { ProductTile } from "../components/ProductTile";
@@ -29,6 +30,12 @@ export default function Marketplace({ products }) {
       <div>
         {products.length > 0 ? renderProducts() : null}
       </div>
+
+      <p>
+        <Link href="/basket">
+          <a>Go to your basket</a>
+        </Link>
+      </p>
     </main>
   );
 };
