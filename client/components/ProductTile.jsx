@@ -10,7 +10,7 @@ export const ProductTile = ({ name, imageUrl, price, quantity: productQuantity, 
       </div>
       <p>{name}</p>
       <p>{`${power} // ${productQuantity === 1 ? 'Single' : `Packet of ${productQuantity}`}`}</p>
-      <AddToBasket price={price} />
+      <AddToBasket price={price} productId={id}/>
       <Link href={`/product/${encodeURIComponent(id)}`}><a>More detail</a></Link>
     </div>
   )
