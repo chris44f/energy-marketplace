@@ -4,7 +4,8 @@ import client from "../../apollo-client";
 import { AddToBasket } from "../../components/AddToBasket";
 
 export default function Product({ product }) {
-  const { id,
+  const {
+    id,
     name,
     price,
     img_url,
@@ -26,7 +27,7 @@ export default function Product({ product }) {
       </div>
       <h1>{name}</h1>
       <p>{`${power} // ${quantity === 1 ? 'Single' : `Packet of ${quantity}`}`}</p>
-      <AddToBasket price={price} />
+      <AddToBasket price={price} productId={id}/>
       <h2>Description</h2>
       <p>{description}</p>
       <h2>Specifications</h2>
@@ -42,7 +43,7 @@ export default function Product({ product }) {
           </li>
           <li>
             <p>Dimensions</p>
-            <p>{height}x{width}x{length}</p>
+            <p>{`${height}x${width}x${length}`}</p>
           </li>
           <li>
             <p>Item model number</p>
@@ -56,7 +57,6 @@ export default function Product({ product }) {
       </div>
     </div>
   )
-
 }
 
 export async function getStaticPaths() {
