@@ -20,8 +20,15 @@ export const GET_BASKET = gql`
   }
 `
 
-export const AddToBasket = ({ price, productId }) => {
-  const [quantity, setQuantity] = useState(1)
+interface Props {
+  price: number;
+  productId: string;
+  existingQuantity?: number,
+  refreshBasket?: Function
+}
+
+export const AddToBasket = ({ price, productId, existingQuantity, refreshBasket }: Props) => {
+  const [quantity, setQuantity] = useState(existingQuantity ?? 1)
   const formattedPrice = (price / 100).toFixed(2)
 
   const [updateBasket, { data, loading: updateLoading, error: updateError }] = useMutation(UPDATE_BASKET);
@@ -34,7 +41,12 @@ export const AddToBasket = ({ price, productId }) => {
     if (updatedProductIndex < 0) {
       return [...updatedBasket, addedProduct]
     } else {
-      updatedBasket[updatedProductIndex] = {...addedProduct, quantity: updatedBasket[updatedProductIndex].quantity + addedProduct.quantity}
+      updatedBasket[updatedProductIndex] = {
+        ...addedProduct,
+        quantity: existingQuantity ?
+          addedProduct.quantity :
+          (updatedBasket[updatedProductIndex].quantity + addedProduct.quantity)
+      }
       return updatedBasket
     }
   }
@@ -49,13 +61,15 @@ export const AddToBasket = ({ price, productId }) => {
       "contents": updatedBasketContents,
       "basketEmpty": false
     }})
+
+    refreshBasket ? refreshBasket() : null;
   }
 
   return (
     <div>
       <p>{formattedPrice}</p>
       <Counter value={quantity} handleValueChange={setQuantity} />
-      <button onClick={handleAddItem}>Add to basket</button>
+      <button onClick={handleAddItem}>{existingQuantity ? 'Update basket' : 'Add to basket'}</button>
     </div>
   )
 }

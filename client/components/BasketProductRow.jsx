@@ -1,4 +1,5 @@
 import {useQuery, gql} from "@apollo/client";
+import {AddToBasket} from "./AddToBasket";
 
 const GET_PRODUCT = gql`
   query Product($productId: ID!) {
@@ -10,25 +11,27 @@ const GET_PRODUCT = gql`
   }
 `
 
-export const BasketProductRow = ({ productId, productQuantity }) => {
+export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) => {
   const { data, loading, error } = useQuery(GET_PRODUCT, { variables: { productId }})
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>There has been an error</div>
 
+  const { name, img_url, price } = data.findProductById
+
   return(
     <div>
       <p>
-        {data.findProductById.name}
+        {name}
       </p>
-      <img src={data.findProductById.img_url} alt={data.findProductById.name}/>
+      <img src={img_url} alt={name}/>
       <p>
-        {data.findProductById.price}
+        {price}
       </p>
       <p>
         {productQuantity}
       </p>
-    {/*  TODO: Render a counter here and add in counter functionality */}
+      <AddToBasket price={price} productId={productId} existingQuantity={productQuantity} refreshBasket={refreshBasket}/>
     </div>
   )
 }
