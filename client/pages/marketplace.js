@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import client from "../apollo-client"
 import {ProductTile} from "../components/ProductTile";
 
-export default function Marketplace({ products }) {
+export default function Marketplace({ products, baskets }) {
   const renderProducts = () => (
     products.map((
       {
@@ -46,14 +46,29 @@ const GET_ALL_PRODUCTS = gql`
   }
 `
 
+const GET_ALL_BASKETS = gql`
+  query AllBaskets {
+    allBaskets {
+      id
+      basketEmpty
+      contents
+    }
+  }
+`
+
 export async function getStaticProps() {
   const { data } = await client.query({
     query: GET_ALL_PRODUCTS
   });
 
+  const baskets = await client.query({
+    query: GET_ALL_BASKETS
+  })
+
   return {
     props: {
       products: data.allProducts,
+      baskets: baskets.data.allBaskets,
     },
   }
 }

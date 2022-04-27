@@ -35,4 +35,11 @@ module.exports = {
       img_url: "https://i.ibb.co/2nzwxnQ/bulb.png",
     },
   ],
+  baskets: [
+    {
+      id: 1,
+      contents: [{}],
+      basketEmpty: true,
+    },
+  ],
 };
