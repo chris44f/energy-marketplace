@@ -7,43 +7,47 @@ import { Counter } from "./Counter";
 interface Props {
   price: number;
   productId: string;
-  existingQuantity?: number,
+  existingQuantityInBasket?: number,
   refreshBasket?: Function
 }
 
-export const AddToBasket = ({ price, productId, existingQuantity, refreshBasket }: Props) => {
-  const [quantity, setQuantity] = useState(existingQuantity ?? 1)
-  const formattedPrice = (price / 100).toFixed(2)
+export const AddToBasket = ({ price, productId, existingQuantityInBasket, refreshBasket }: Props) => {
+  const [quantity, setQuantity] = useState(existingQuantityInBasket ?? 1);
+  const totalCost = existingQuantityInBasket ? existingQuantityInBasket * price : price;
+  const formattedCost = (totalCost / 100).toFixed(2);
 
   const [updateBasket, { data, loading: updateLoading, error: updateError }] = useMutation(UPDATE_BASKET);
   const [getBasket] = useLazyQuery(GET_BASKET);
 
   const updateBasketContents = (currentBasket, addedProduct) => {
-    const updatedBasket = currentBasket.filter(product => product.productId)
+    const updatedBasket = currentBasket.contents.filter(product => product.productId)
     const updatedProductIndex = updatedBasket.findIndex(product => product.productId === addedProduct.productId.toString())
+    const addedProductCost = addedProduct.quantity * price
+
+    const totalCostOfBasket = existingQuantityInBasket ? (currentBasket.basketTotal - (existingQuantityInBasket * price) + addedProductCost) : currentBasket.basketTotal + addedProductCost
 
     if (updatedProductIndex < 0) {
-      return [...updatedBasket, addedProduct]
+      return { contents: [...updatedBasket, addedProduct], basketTotal: totalCostOfBasket }
     } else {
       updatedBasket[updatedProductIndex] = {
         ...addedProduct,
-        quantity: existingQuantity ?
+        quantity: existingQuantityInBasket ?
           addedProduct.quantity :
           (updatedBasket[updatedProductIndex].quantity + addedProduct.quantity)
       }
-      return updatedBasket
+      return { contents: updatedBasket, basketTotal: totalCostOfBasket }
     }
   }
 
   const handleAddItem = async () => {
     const { data } = await getBasket({ variables: { basketId: "1" }})
 
-    const updatedBasketContents = updateBasketContents(data.Basket.contents, { productId, quantity })
+    const { contents, basketTotal } = updateBasketContents(data.Basket, { productId, quantity })
 
     await updateBasket({ variables: {
       "updateBasketId": "1",
-      "contents": updatedBasketContents,
-      "basketEmpty": false
+      "contents": contents,
+      "basketTotal": basketTotal
     }})
 
     refreshBasket ? refreshBasket() : null;
@@ -51,9 +55,9 @@ export const AddToBasket = ({ price, productId, existingQuantity, refreshBasket 
 
   return (
     <div>
-      <p>{formattedPrice}</p>
+      <p>{formattedCost}</p>
       <Counter value={quantity} handleValueChange={setQuantity} />
-      <button onClick={handleAddItem}>{existingQuantity ? 'Update basket' : 'Add to basket'}</button>
+      <button onClick={handleAddItem}>{existingQuantityInBasket ? 'Update basket' : 'Add to basket'}</button>
     </div>
   )
 }

@@ -39,7 +39,7 @@ module.exports = {
     {
       id: 1,
       contents: [{}],
-      basketEmpty: true,
+      basketTotal: 0,
     },
   ],
 };

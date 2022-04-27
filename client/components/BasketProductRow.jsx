@@ -16,13 +16,7 @@ export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) 
         {name}
       </p>
       <img src={img_url} alt={name}/>
-      <p>
-        {price}
-      </p>
-      <p>
-        {productQuantity}
-      </p>
-      <AddToBasket price={price} productId={productId} existingQuantity={productQuantity} refreshBasket={refreshBasket}/>
+      <AddToBasket price={price} productId={productId} existingQuantityInBasket={productQuantity} refreshBasket={refreshBasket}/>
     </div>
   )
 }

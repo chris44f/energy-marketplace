@@ -4,7 +4,7 @@ export const GET_BASKET = gql`
   query GetBasket($basketId: ID!) {
     Basket(id: $basketId) {
       contents
-      basketEmpty
+      basketTotal
     }
   }
 `
