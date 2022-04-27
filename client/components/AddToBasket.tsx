@@ -1,24 +1,8 @@
 import {useState} from "react";
-import {Counter} from "./Counter";
-import {gql, useLazyQuery, useMutation} from "@apollo/client";
-
-const UPDATE_BASKET = gql`
-  mutation UpdateBasket($updateBasketId: ID!, $contents: JSON!, $basketEmpty: Boolean!) {
-    updateBasket(id: $updateBasketId, contents: $contents, basketEmpty: $basketEmpty) {
-      contents
-      basketEmpty
-    }
-  }
-`
-
-export const GET_BASKET = gql`
-  query GetBasket($basketId: ID!) {
-    Basket(id: $basketId) {
-      contents
-      basketEmpty
-    }
-  }
-`
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { UPDATE_BASKET } from '../graphql/basket/mutations'
+import { GET_BASKET } from '../graphql/basket/queries'
+import { Counter } from "./Counter";
 
 interface Props {
   price: number;

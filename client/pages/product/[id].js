@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { gql } from "@apollo/client";
 import client from "../../apollo-client";
+import { GET_PRODUCT_FULL, GET_PRODUCTS_COUNT } from "../../graphql/product/queries";
 import { AddToBasket } from "../../components/AddToBasket";
 
 export default function Product({ product }) {
@@ -61,13 +61,7 @@ export default function Product({ product }) {
 
 export async function getStaticPaths() {
   const { data } = await client.query({
-    query: gql`
-      query _allProductsMeta {
-        _allProductsMeta {
-          count
-        }
-      }
-    `
+    query: GET_PRODUCTS_COUNT
   });
 
   const paths = [];
@@ -79,30 +73,9 @@ export async function getStaticPaths() {
   return { paths, fallback: false }
 }
 
- const GET_PRODUCT = gql`
-  query GetProduct($productId: ID!) {
-    Product(id: $productId) {
-      id
-      name
-      price
-      img_url
-      quantity
-      power
-      description
-      brand
-      weight
-      height
-      width
-      length
-      model_code
-      colour
-    }
-  }
-`
-
 export async function getStaticProps({ params }) {
   const { data } = await client.query({
-    query: GET_PRODUCT,
+    query: GET_PRODUCT_FULL,
     variables: {
       productId: params.id
     }

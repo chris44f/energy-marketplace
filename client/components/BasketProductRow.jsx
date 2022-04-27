@@ -1,18 +1,9 @@
-import {useQuery, gql} from "@apollo/client";
-import {AddToBasket} from "./AddToBasket";
-
-const GET_PRODUCT = gql`
-  query Product($productId: ID!) {
-    findProductById: Product(id: $productId) {
-      name
-      price
-      img_url
-    }
-  }
-`
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCT_FOR_BASKET } from "../graphql/product/queries";
+import { AddToBasket } from "./AddToBasket";
 
 export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) => {
-  const { data, loading, error } = useQuery(GET_PRODUCT, { variables: { productId }})
+  const { data, loading, error } = useQuery(GET_PRODUCT_FOR_BASKET, { variables: { productId }})
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>There has been an error</div>
