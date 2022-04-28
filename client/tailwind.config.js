@@ -20,6 +20,7 @@ module.exports = {
     },
     gridTemplateColumns: {
       '1': 'repeat(1, minmax(250px, 1fr))',
+      '2': 'repeat(2, minmax(250px, 1fr))',
       '4': 'repeat(4, minmax(250px, 1fr))',
     },
     extend: {},

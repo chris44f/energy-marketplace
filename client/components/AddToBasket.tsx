@@ -44,11 +44,14 @@ export const AddToBasket = ({ price, productId, existingQuantityInBasket, refres
 
     const { contents, basketTotal } = updateBasketContents(data.Basket, { productId, quantity })
 
-    await updateBasket({ variables: {
-      "updateBasketId": "1",
-      "contents": contents,
-      "basketTotal": basketTotal
-    }})
+    await updateBasket({
+      variables: {
+        "updateBasketId": "1",
+        "contents": contents,
+        "basketTotal": basketTotal
+      },
+      refetchQueries: [GET_BASKET],
+    })
 
     refreshBasket ? refreshBasket() : null;
   }

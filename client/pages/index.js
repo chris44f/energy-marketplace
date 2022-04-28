@@ -18,7 +18,7 @@ export default function Home() {
         </h1>
         <Image alt="constantine" width="160" height="177" src="https://static.octopuscdn.com/constantine/constantine.svg"/>
         <h2 className='text-blue-light py-8 text-sub-heading'>
-          <Link href="/marketplace">
+          <Link href="/products">
             <a>
               Go to product page
             </a>
