@@ -14,7 +14,7 @@ interface Props {
 export const AddToBasket = ({ price, productId, existingQuantityInBasket, refreshBasket }: Props) => {
   const [quantity, setQuantity] = useState(existingQuantityInBasket ?? 1);
   const totalCost = existingQuantityInBasket ? existingQuantityInBasket * price : price;
-  const formattedCost = (totalCost / 100).toFixed(2);
+  const formattedCost = (totalCost / 100).toFixed(2).toString().split('.')
 
   const [updateBasket, { data, loading: updateLoading, error: updateError }] = useMutation(UPDATE_BASKET);
   const [getBasket] = useLazyQuery(GET_BASKET);
@@ -54,10 +54,15 @@ export const AddToBasket = ({ price, productId, existingQuantityInBasket, refres
   }
 
   return (
-    <div>
-      <p>{formattedCost}</p>
-      <Counter value={quantity} handleValueChange={setQuantity} />
-      <button onClick={handleAddItem}>{existingQuantityInBasket ? 'Update basket' : 'Add to basket'}</button>
+    <div className="flex flex-col w-full bg-blue-dark p-8">
+      <div className="flex flex-row justify-between items-center">
+        <div className="text-white flex flex-row items-start font-bold">
+          <span className="text-sub-heading">{formattedCost[0]}</span>
+          <span className="text-sm pt-1">{`.${formattedCost[1]}`}</span>
+        </div>
+        <Counter value={quantity} handleValueChange={setQuantity} />
+      </div>
+      <button className="bg-gradient-to-b from-pink to-pink-dark w-full rounded h-16 text-white text-sub-heading mt-4 font-bold" onClick={handleAddItem}>{existingQuantityInBasket ? 'Update basket' : 'Add to cart'}</button>
     </div>
   )
 }

@@ -11,6 +11,7 @@ module.exports = {
       'counter-disabled': "#1a2a43",
       'blue-accent': "#36598d",
       'pink': '#df5ef0',
+      'pink-dark': "#fb1a7c",
       'white': '#ffffff',
     },
     fontSize: {
