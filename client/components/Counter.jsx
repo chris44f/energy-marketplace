@@ -10,10 +10,13 @@ export const Counter = ({ handleValueChange, value }) => {
   }
 
   return (
-    <div>
-      <button onClick={handleQuantityDecrease} disabled={value === 1}>-</button>
-      <span>{value}</span>
-      <button onClick={handleQuantityIncrease} disabled={value === 99}>+</button>
+    <div className="flex flex-col items-center">
+      <span className="text-blue-accent">QTY</span>
+      <div className="flex flex-row">
+        <button className="h-8 w-8 rounded bg-blue-accent disabled:bg-counter-disabled text-white" onClick={handleQuantityDecrease} disabled={value === 1}>-</button>
+        <span className="text-white text-sub-heading w-12 text-center" title="Current quantity">{value}</span>
+        <button className="h-8 w-8 rounded bg-blue-accent disabled:bg-counter-disabled text-white" onClick={handleQuantityIncrease} disabled={value === 99}>+</button>
+      </div>
     </div>
   )
 }
