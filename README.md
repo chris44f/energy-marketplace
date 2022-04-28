@@ -1,3 +1,17 @@
+My work - considerations, notes, and concessions 
+======================
+Whilst the app.test.js was used as a basis for this app, I divided the test between several unit tests for various components, and an integration test on Cypress.
+
+Cypress can be run by doing `yarn cypress` within the client folder.
+
+I haven't typed the files despite installing TypeScript - my intention was to type all the files but decided against it in the interests of time.
+
+I've added to the db.js. Some of the queries / mutations are maybe not as relational as I'd have liked but couldn't set up the database with relations - ideally the product id in basket would link to the product graph.
+
+I've tried to mainly use SSG and SSR pages, and therefore have minimised the use of Redux or React for state management - as  the complexity increases substantially trying to manage client and server state, and storing values in db seemed an appropriate workaround.
+
+If I had more time, I would increase the testing and refactor some of the styling and smaller components.
+
 Octopus Front End Test
 ======================
 
