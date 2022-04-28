@@ -28,7 +28,7 @@ export default function Marketplace({ products }) {
   return (
     <main className="bg-blue p-8">
       <Link href="/basket">
-        <a tabIndex={0} className="text-pink float-right hover:underline active:underline">Go to your basket</a>
+        <a className="text-pink float-right hover:underline active:underline">Go to your basket</a>
       </Link>
       <h1 className="text-blue-light text-heading font-bold">Products</h1>
       <div className="grid grid-cols-1 grid-rows-4 sm:grid-cols-4 gap-4">

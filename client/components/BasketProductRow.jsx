@@ -11,12 +11,14 @@ export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) 
   const { name, img_url, price } = data.findProductById
 
   return(
-    <div>
-      <p>
+    <div className="flex flex-row h-48 min-h-fit justify-around border-2 border-blue-accent bg-blue-dark">
+      <p className="text-white w-4/5 p-8 sm:text-sub-heading">
         {name}
       </p>
-      <img src={img_url} alt={name}/>
-      <AddToBasket price={price} productId={productId} existingQuantityInBasket={productQuantity} refreshBasket={refreshBasket}/>
+      <img className="hidden sm:block"src={img_url} alt={name} />
+      <div className="w-1/4 min-w-[250px]">
+        <AddToBasket price={price} productId={productId} existingQuantityInBasket={productQuantity} refreshBasket={refreshBasket}/>
+      </div>
     </div>
   )
 }
