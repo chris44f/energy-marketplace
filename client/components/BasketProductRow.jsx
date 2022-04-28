@@ -6,7 +6,7 @@ export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) 
   const { data, loading, error } = useQuery(GET_PRODUCT_FOR_BASKET, { variables: { productId }})
 
   if (loading) return <div>Loading...</div>
-  if (error) return <div>There has been an error</div>
+  if (error) return <div>There has been an error, please refresh the page.</div>
 
   const { name, img_url, price } = data.findProductById
 
@@ -17,7 +17,12 @@ export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) 
       </p>
       <img className="hidden sm:block"src={img_url} alt={name} />
       <div className="w-1/4 min-w-[250px]">
-        <AddToBasket price={price} productId={productId} existingQuantityInBasket={productQuantity} refreshBasket={refreshBasket}/>
+        <AddToBasket
+          price={price}
+          productId={productId}
+          existingQuantityInBasket={productQuantity}
+          refreshBasket={refreshBasket}
+        />
       </div>
     </div>
   )
