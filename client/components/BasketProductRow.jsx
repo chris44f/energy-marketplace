@@ -15,7 +15,7 @@ export const BasketProductRow = ({ productId, productQuantity, refreshBasket }) 
       <p className="text-white w-4/5 p-8 sm:text-sub-heading">
         {name}
       </p>
-      <img className="hidden sm:block"src={img_url} alt={name} />
+      <img className="hidden sm:block w-[180px]" src={img_url} alt={name} />
       <div className="w-1/4 min-w-[250px]">
         <AddToBasket
           price={price}
