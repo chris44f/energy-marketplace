@@ -1,3 +1,4 @@
+import Head from "next/head";
 import client from "../apollo-client"
 import { GET_ALL_PRODUCTS } from "../graphql/product/queries";
 import { ProductTile } from "../components/ProductTile";
@@ -25,12 +26,19 @@ export default function Products({ products }) {
   )
 
   return (
-    <main className="bg-blue p-8 h-full">
-        <h1 className="pt-8 text-blue-light text-heading font-bold">Products</h1>
-        <div className="grid grid-cols-1 grid-rows-4 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products.length > 0 ? renderProducts() : null}
-        </div>
-    </main>
+    <>
+      <Head>
+        <title>Products</title>
+        <meta name="description" content="Our energy products" />
+        <link rel="icon" href="https://static.octopuscdn.com/constantine/constantine.svg" />
+      </Head>
+      <main className="bg-blue p-8 h-full">
+          <h1 className="pt-8 text-blue-light text-heading font-bold">Products</h1>
+          <div className="grid grid-cols-1 grid-rows-4 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {products.length > 0 ? renderProducts() : null}
+          </div>
+      </main>
+    </>
   );
 };
 
