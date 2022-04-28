@@ -18,6 +18,10 @@ module.exports = {
       'sub-heading': '1.5rem',
       'heading': '3rem',
     },
+    gridTemplateColumns: {
+      '1': 'repeat(1, minmax(250px, 1fr))',
+      '4': 'repeat(4, minmax(250px, 1fr))',
+    },
     extend: {},
   },
   plugins: [],
