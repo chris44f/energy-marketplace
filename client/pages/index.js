@@ -7,16 +7,14 @@ export default function Home() {
   return (
     <div className={`${styles.container} bg-blue`}>
       <Head>
-        <title>Octopus Energy Marketplace</title>
-        <meta name="description" content="energy products from Octopus" />
-        <link rel="icon" href="https://static.octopuscdn.com/constantine/constantine.svg" />
+        <title>Energy Marketplace</title>
+        <meta name="description" content="energy products" />
       </Head>
 
       <main className={`${styles.main}`}>
         <h1 className={`${styles.title} text-blue-light py-8`}>
-          Welcome to Octopus Energy Equipment
+          Welcome to Energy Equipment Marketplace
         </h1>
-        <Image alt="constantine" width="160" height="177" src="https://static.octopuscdn.com/constantine/constantine.svg"/>
         <h2 className='text-blue-light py-8 text-sub-heading'>
           <Link href="/products">
             <a>
